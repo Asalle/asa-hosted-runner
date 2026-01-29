@@ -7,11 +7,7 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Verify wget is installed and working
-RUN wget --version && \
-    echo "wget is successfully installed and ready to fetch from the internet"
-
-# Set a default command that demonstrates wget usage
-# When running the container, you can execute:
+# Default command starts an interactive bash shell
+# To use wget directly, pass commands as arguments:
 # docker run <image> wget -O - https://example.com/
 CMD ["/bin/bash"]
