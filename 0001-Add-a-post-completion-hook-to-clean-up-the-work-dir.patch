@@ -1,0 +1,31 @@
+From bac2f3d3e108269fb44ff027b990631dcb32ba72 Mon Sep 17 00:00:00 2001
+From: Asal Mirzaieva <asa.mirzaieva@canonical.com>
+Date: Thu, 29 Jan 2026 17:01:36 +0100
+Subject: [PATCH] Add a post completion hook to clean up the work dir
+
+---
+ hooks/job_completed.hook | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+ create mode 100644 hooks/job_completed.hook
+
+diff --git a/hooks/job_completed.hook b/hooks/job_completed.hook
+new file mode 100644
+index 0000000..94860f9
+--- /dev/null
++++ b/hooks/job_completed.hook
+@@ -0,0 +1,12 @@
++#!/bin/bash
++# Cleanup script that runs after each job completes
++# This removes the _work folder contents to free up disk space 
++ 
++WORK_DIR="${HOME}/actions-runner/_work"
++ 
++if [ -d "$WORK_DIR" ]; then
++  echo "Cleaning up _work folder..." 
++  rm -rf "${WORK_DIR:?}"/* 
++  mkdir "${WORK_DIR}"
++  echo "Cleanup complete"
++fi
+-- 
+2.43.0
+
